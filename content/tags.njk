@@ -1,0 +1,8 @@
+<p class="secondary-text">全部标签</p>
+
+<ul>
+{% for tag in collections | getKeys | filterTagList | sortAlphabetically %}
+	{% set tagUrl %}/tags/{{ tag | tagSlug }}/{% endset %}
+	<li><a href="{{ tagUrl }}" class="post-tag">{{ tag }}</a>...</li>
+{% endfor %}
+</ul>

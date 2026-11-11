@@ -1,0 +1,17 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: monthly
+    cooldown:
+      default-days: 7
+    labels:
+      - "dependency-updates"
+    versioning-strategy: increase
+    allow:
+      - dependency-type: all
+    groups:
+      npm:
+        patterns:
+          - "*"

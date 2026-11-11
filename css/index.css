@@ -1,0 +1,303 @@
+/* Defaults */
+:root {
+	--font-family: -apple-system, system-ui, sans-serif;
+	--font-family-monospace: Consolas, Menlo, Monaco, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
+}
+
+/* Theme colors */
+:root {
+	--color-gray-20: #d9d5ce;
+	--color-gray-50: #706c66;
+	--color-gray-90: #292826;
+
+	--background-color: #fff;
+
+	--text-color: var(--color-gray-90);
+	--text-color-link: var(--text-color);
+	--text-color-link-active: var(--text-color);
+	--text-color-link-visited: var(--text-color);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--color-gray-20: #383838;
+		--color-gray-50: #9a9a9a;
+		--color-gray-90: #cecece;
+
+		--background-color: #202124;
+	}
+}
+
+
+/* Global stylesheet */
+* {
+	box-sizing: border-box;
+}
+
+@view-transition {
+	navigation: auto;
+}
+
+::view-transition-group(*) {
+	animation-duration: .2s;
+}
+
+html,
+body {
+	padding: 0;
+	margin: 0 auto;
+	font-family: var(--font-family);
+	color: var(--text-color);
+	background-color: var(--background-color);
+}
+html {
+	overflow-y: scroll;
+}
+body {
+	max-width: 40em;
+}
+
+h1,
+.postlist-link {
+	font-size: 2rem;
+	font-weight: 700;
+	line-height: 1.2;
+	overflow-wrap: anywhere;
+	white-space: pre-line;
+}
+h2 {
+	font-size: 1.5rem;
+}
+h3 {
+	font-size: 1.25rem;
+}
+h4,
+h5,
+h6 {
+	font-size: 1.125rem;
+}
+
+/* https://www.a11yproject.com/posts/how-to-hide-content/ */
+.visually-hidden:not(:focus):not(:active) {
+	clip: rect(0 0 0 0);
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap;
+	width: 1px;
+}
+
+/* Fluid images via https://www.zachleat.com/web/fluid-images/ */
+img{
+  max-width: 100%;
+}
+img[width][height] {
+  height: auto;
+}
+img[src$=".svg"] {
+  width: 100%;
+  height: auto;
+  max-width: none;
+}
+video,
+iframe {
+	width: 100%;
+	height: auto;
+}
+iframe {
+	aspect-ratio: 16/9;
+}
+
+p:last-child {
+	margin-bottom: 0;
+}
+p {
+	line-height: 1.5;
+}
+
+li {
+	line-height: 1.5;
+}
+
+a[href] {
+	color: var(--text-color-link);
+	text-decoration: none;
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+a[href]:visited {
+	color: var(--text-color-link-visited);
+}
+a[href]:hover,
+a[href]:focus-visible,
+a[href]:active {
+	color: var(--background-color);
+	background-color: var(--text-color);
+	/* Extend the highlight without changing inline text layout. */
+	box-shadow: -.15em 0 0 .1em var(--text-color), .15em 0 0 .1em var(--text-color);
+}
+
+footer em a[href] {
+	position: relative;
+	isolation: isolate;
+}
+footer em a[href]:is(:hover, :focus-visible, :active) {
+	background-color: transparent;
+	box-shadow: none;
+}
+footer em a[href]:is(:hover, :focus-visible, :active)::before {
+	content: "";
+	position: absolute;
+	inset: -.1em -.25em;
+	z-index: -1;
+	background-color: var(--text-color);
+	transform: skewX(-12deg);
+}
+
+main,
+footer {
+	padding: 1rem;
+}
+main {
+	font-size: 1.125rem;
+}
+main :first-child {
+	margin-top: 0;
+}
+
+header {
+	border-bottom: 1px dashed var(--color-gray-20);
+}
+
+#skip-link {
+	padding: 0.5rem 1rem;
+	margin: 0;
+	border: 1px solid var(--color-gray-90);
+	border-radius: 2px;
+}
+
+/* Prevent visually-hidden skip link fom pushing content around when focused */
+#skip-link.visually-hidden:focus {
+	position: absolute;
+	top: 1rem;
+	left: 1rem;
+	/* Ensure it is positioned on top of everything else when it is shown */
+	z-index: 999;
+}
+
+.links-nextprev {
+	display: flex;
+	justify-content: space-between;
+	gap: .5em 1em;
+	list-style: "";
+	border-top: 1px dashed var(--color-gray-20);
+	padding: 1em 0;
+}
+.links-nextprev > * {
+	flex-grow: 1;
+}
+.links-nextprev-next {
+	text-align: right;
+}
+
+table {
+	margin: 1em 0;
+}
+table td,
+table th {
+	padding-right: 1em;
+}
+
+code {
+	font-family: var(--font-family-monospace);
+	word-break: break-all;
+}
+
+/* Header */
+header {
+	display: flex;
+	gap: 1em;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: baseline;
+	padding: 1em;
+}
+.home-link {
+	font-size: .875rem;
+	font-weight: 700;
+}
+
+/* Nav */
+.nav {
+	display: flex;
+	gap: .5em 1em;
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	font-size: .875rem;
+}
+.nav-item {
+	display: inline-block;
+}
+.nav a[href][aria-current="page"] {
+	font-weight: 700;
+}
+
+/* Posts list */
+.postlist {
+	list-style: none;
+	padding: 0;
+}
+.postlist-item {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) auto;
+	column-gap: 1.5rem;
+	align-items: baseline;
+	margin-bottom: 2em;
+}
+.postlist-date {
+	font-size: .8125rem;
+	color: var(--color-gray-50);
+	white-space: nowrap;
+	font-variant-numeric: tabular-nums;
+}
+.postlist-item-active .postlist-link {
+	font-weight: bold;
+}
+
+/* Tags */
+.post-tag {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+.postlist-item > .post-tag {
+	align-self: center;
+}
+
+/* Tags list */
+.post-metadata {
+	font-size: .8125rem;
+	color: var(--color-gray-50);
+	display: inline-flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: .5em;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.post-metadata .post-tag {
+	display: inline;
+}
+.post-metadata time {
+	margin-right: 1em;
+}
+
+
+/* Extra styles */
+.secondary-text {
+	font-size: 13px;
+	color: var(--color-gray-50);
+}
